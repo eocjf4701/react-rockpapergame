@@ -15,17 +15,21 @@ const choice = {
   },
   scissors:{
     name:"Scissors",
-    img:"https://mblogthumb-phinf.pstatic.net/20130509_100/sskyes_13680790979837mYJl_PNG/daum_net_20130204_130120.png?type=w2",
+    img:"https://png.pngtree.com/png-clipart/20190920/original/pngtree-illustrated-scissors-gesture-illustration-png-image_4673227.jpg",
   },
   paper:{
     name:"Paper",
     img:"https://mblogthumb-phinf.pstatic.net/MjAxODA2MThfMTM3/MDAxNTI5MzMyNDE1MDkz.qf2xpioWiMO6A6wFtBhWgfEV7C7rsLv7zaVIEGLlwoog.gzCQroiii_BecftKsy0YsAzb3cMyYemt0Z5_et0BSWQg.JPEG.kidarinusu/eb32b10b28f5043ecd0b4107e7494392e36ae3d01bb8124297f3c97f_1280.jpg?type=w800"
   },
+  noChoice:{
+    name:"noChoice",
+    img:"http://image.yes24.com/blogimage/blog/l/m/lmok311/re.jpg"
+  }
 };
 function App() {
-  const [userSelect, setUserSelect] = useState(null);
-  const [computerelect, setComputerSelect] = useState(null);
-  const [result, setResult] = useState("");
+  const [userSelect, setUserSelect] = useState(choice["noChoice"]);
+  const [computerelect, setComputerSelect] = useState(choice["noChoice"]);
+  const [result, setResult] = useState(["Choice", "Choice"]);
 
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
@@ -35,6 +39,7 @@ function App() {
   }
 
   const judgemnet = (user, computer) => {
+    
     if(user.name === computer.name) {
       return ["tie", "tie"];
     }
@@ -55,6 +60,7 @@ function App() {
 
   const randomChoice = () => {
     let itemArray = Object.keys(choice); // 객체에 키값만 뽑아서 어레이로 만들어주는 함수
+    itemArray.splice(3);
     let randomItem = Math.floor(Math.random() * itemArray.length);
     let final = itemArray[randomItem];
     return choice[final];
