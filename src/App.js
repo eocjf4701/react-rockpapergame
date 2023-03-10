@@ -25,11 +25,32 @@ const choice = {
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerelect, setComputerSelect] = useState(null);
+  const [result, setResult] = useState("");
 
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
     let computerChoice = randomChoice();
     setComputerSelect(computerChoice);
+    setResult(judgemnet(choice[userChoice], computerChoice));
+  }
+
+  const judgemnet = (user, computer) => {
+    if(user.name === computer.name) {
+      return ["tie", "tie"];
+    }
+
+    if(user.name === 'Scissors') {
+      return computer.name === 'Rock' ? ["Lose", "Win"] : ["Win", "Lose"];
+    }
+
+    if(user.name === 'Rock') {
+      return computer.name === 'Scissors' ? ["Win", "Lose"] : ["Lose", "Win"];
+    }
+
+    if(user.name === 'Paper') {
+      return computer.name === 'Rock' ? ["Win", "Lose"] : ["Lose", "Win"];
+    }
+
   }
 
   const randomChoice = () => {
@@ -37,13 +58,14 @@ function App() {
     let randomItem = Math.floor(Math.random() * itemArray.length);
     let final = itemArray[randomItem];
     return choice[final];
+
   }
   
   return (
     <div>
       <div className='main'>
-        <Box title="You" item={userSelect}/>
-        <Box title="Computer" item={computerelect}/>
+        <Box title="You" item={userSelect} result={result[0]}/>
+        <Box title="Computer" item={computerelect} result={result[1]}/>
       </div>
       <div className='main'>
         <button onClick={() => play("scissors")}>가위</button>
